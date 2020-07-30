@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_time/constants/argument_keys.dart';
 import 'package:flutter_time/constants/default_location.dart';
 import 'package:flutter_time/models/location_time.dart';
@@ -31,10 +32,13 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[900],
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: Text('Loading'),
+        child: Center(
+          child: SpinKitFoldingCube(
+            color: Colors.white,
+            size: 50,
+          ),
         ),
       ),
     );
