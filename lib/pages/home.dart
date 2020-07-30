@@ -79,12 +79,17 @@ class _HomeState extends State<Home> {
                       dynamic result =
                           await Navigator.pushNamed(context, '/location');
 
-                      setState(() {
-                        locationTime = result[locationTimeKey];
-                      });
+                      if (result != null) {
+                        setState(() {
+                          locationTime = result[locationTimeKey];
+                        });
+                      }
                       setUpTimer();
                     },
-                    icon: Icon(Icons.edit_location),
+                    icon: Icon(
+                      Icons.edit_location,
+                      color: textColor,
+                    ),
                     label: Text(
                       "Edit location",
                       style: TextStyle(color: textColor),
