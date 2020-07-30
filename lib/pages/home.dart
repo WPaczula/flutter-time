@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
     String time = dateFormatService.formatTime(locationTime.dateTime);
     bool isDayTime = dayNightService.isDay(locationTime.dateTime);
 
-    Color textColor = isDayTime ? Colors.black : Colors.white;
+    Color textColor = isDayTime ? Colors.blueGrey[900] : Colors.white;
     Color backgroundColor = isDayTime ? Colors.blue[700] : Colors.blueGrey[900];
     String backgroundImage = isDayTime ? 'assets/day.png' : 'assets/night.png';
 
