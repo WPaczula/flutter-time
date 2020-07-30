@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_time/constants/argument_keys.dart';
 import 'package:flutter_time/models/location_time.dart';
@@ -13,20 +15,49 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   LocationTime locationTime;
+  Timer timer;
   FlagService flagService = FlagService();
   LocationNameService locationNameService = LocationNameService();
   DateFormatService dateFormatService = DateFormatService();
   DayNightService dayNightService = DayNightService();
 
   @override
+  void initState() {
+    super.initState();
+
+    setUpTimer();
+  }
+
+  void setUpTimer() {
+    if (timer != null) {
+      timer.cancel();
+    }
+
+    timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      var newDateTime = locationTime.dateTime.add(Duration(seconds: 1));
+
+      setState(() {
+        locationTime = LocationTime(
+            dateTime: newDateTime, location: locationTime.location);
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context).settings.arguments;
-    LocationTime currentLocationTime =
-        locationTime == null ? arguments[locationTimeKey] : locationTime;
-    String locationName =
-        locationNameService.getName(currentLocationTime.location);
-    String time = dateFormatService.formatTime(currentLocationTime.dateTime);
-    bool isDayTime = dayNightService.isDay(currentLocationTime.dateTime);
+
+    if (locationTime == null) {
+      setState(() {
+        locationTime = arguments[locationTimeKey];
+      });
+    }
+
+    setUpTimer();
+
+    String locationName = locationNameService.getName(locationTime.location);
+    String time = dateFormatService.formatTime(locationTime.dateTime);
+    bool isDayTime = dayNightService.isDay(locationTime.dateTime);
 
     Color textColor = isDayTime ? Colors.black : Colors.white;
     Color backgroundColor = isDayTime ? Colors.white : Colors.blueGrey[900];
@@ -46,6 +77,7 @@ class _HomeState extends State<Home> {
                     setState(() {
                       locationTime = result[locationTimeKey];
                     });
+                    setUpTimer();
                   },
                   icon: Icon(Icons.edit_location),
                   label: Text(

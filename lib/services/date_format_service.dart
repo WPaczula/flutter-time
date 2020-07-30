@@ -4,6 +4,6 @@ class DateFormatService {
   DateFormatService();
 
   String formatTime(DateTime dateTime) {
-    return DateFormat.jm().format(dateTime);
+    return DateFormat.Hms().format(dateTime);
   }
 }
