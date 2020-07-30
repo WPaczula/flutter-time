@@ -1,16 +1,14 @@
 # flutter_time
 
-A new Flutter project.
+Project to test Flutter and Dart. Simple world time watch. Inspired by tutorial: https://www.youtube.com/watch?v=1ukSR1GRtMU&list=PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ
 
-## Getting Started
+## How does it work
 
-This project is a starting point for a Flutter application.
+The app is basically a clock for 3 different cities in the world - Warsaw, London and Los Angeles. They can be chosen on a separate screen.
 
-A few resources to get you started if this is your first Flutter project:
+## How does it look
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<div style="display: flex; width: 100%; justify-content: space-evenly">
+    <img src="./assets/screenshot1.png" style="flex: 0 0 auto; height: 400px" />
+    <img src="./assets/screenshot2.png" style="flex: 0 0 auto; height: 400px" />
+</div>
