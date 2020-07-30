@@ -60,46 +60,52 @@ class _HomeState extends State<Home> {
     bool isDayTime = dayNightService.isDay(locationTime.dateTime);
 
     Color textColor = isDayTime ? Colors.black : Colors.white;
-    Color backgroundColor = isDayTime ? Colors.white : Colors.blueGrey[900];
+    Color backgroundColor = isDayTime ? Colors.blue[700] : Colors.blueGrey[900];
+    String backgroundImage = isDayTime ? 'assets/day.png' : 'assets/night.png';
 
     return Scaffold(
         backgroundColor: backgroundColor,
         body: SafeArea(
-            child: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
-          child: Column(
-            children: <Widget>[
-              FlatButton.icon(
-                  onPressed: () async {
-                    dynamic result =
-                        await Navigator.pushNamed(context, '/location');
+            child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage(backgroundImage), fit: BoxFit.cover)),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+            child: Column(
+              children: <Widget>[
+                FlatButton.icon(
+                    onPressed: () async {
+                      dynamic result =
+                          await Navigator.pushNamed(context, '/location');
 
-                    setState(() {
-                      locationTime = result[locationTimeKey];
-                    });
-                    setUpTimer();
-                  },
-                  icon: Icon(Icons.edit_location),
-                  label: Text(
-                    "Edit location",
-                    style: TextStyle(color: textColor),
-                  )),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(locationName,
-                      style: TextStyle(
-                          fontSize: 28, letterSpacing: 2, color: textColor)),
-                ],
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(time, style: TextStyle(fontSize: 66, color: textColor))
-            ],
+                      setState(() {
+                        locationTime = result[locationTimeKey];
+                      });
+                      setUpTimer();
+                    },
+                    icon: Icon(Icons.edit_location),
+                    label: Text(
+                      "Edit location",
+                      style: TextStyle(color: textColor),
+                    )),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(locationName,
+                        style: TextStyle(
+                            fontSize: 28, letterSpacing: 2, color: textColor)),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(time, style: TextStyle(fontSize: 66, color: textColor))
+              ],
+            ),
           ),
         )));
   }
