@@ -21,10 +21,12 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Map arguments = ModalRoute.of(context).settings.arguments;
-    LocationTime locationTime = arguments[locationTimeKey];
-    String locationName = locationNameService.getName(locationTime.location);
-    String time = dateFormatService.formatTime(locationTime.dateTime);
-    bool isDayTime = dayNightService.isDay(locationTime.dateTime);
+    LocationTime currentLocationTime =
+        locationTime == null ? arguments[locationTimeKey] : locationTime;
+    String locationName =
+        locationNameService.getName(currentLocationTime.location);
+    String time = dateFormatService.formatTime(currentLocationTime.dateTime);
+    bool isDayTime = dayNightService.isDay(currentLocationTime.dateTime);
 
     Color textColor = isDayTime ? Colors.black : Colors.white;
     Color backgroundColor = isDayTime ? Colors.white : Colors.blueGrey[900];
@@ -37,8 +39,13 @@ class _HomeState extends State<Home> {
           child: Column(
             children: <Widget>[
               FlatButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/location');
+                  onPressed: () async {
+                    dynamic result =
+                        await Navigator.pushNamed(context, '/location');
+
+                    setState(() {
+                      locationTime = result[locationTimeKey];
+                    });
                   },
                   icon: Icon(Icons.edit_location),
                   label: Text(

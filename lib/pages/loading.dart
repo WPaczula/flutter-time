@@ -21,7 +21,7 @@ class _LoadingState extends State<Loading> {
   void setUpWorldTime() async {
     var worldTimeService = WorldTimeService();
     var locationUrl = LocationUrl(location: defaultLocation);
-    var currentTime = await worldTimeService.getTime(locationUrl: locationUrl);
+    var currentTime = await worldTimeService.getTime(locationUrl);
 
     Navigator.pushReplacementNamed(context, '/home', arguments: {
       locationTimeKey:

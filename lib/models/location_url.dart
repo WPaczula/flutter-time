@@ -4,7 +4,7 @@ class LocationUrl {
   Location location;
   Map<Location, String> _locationUrlMap = {
     Location.London: "/Europe/London",
-    Location.LosAngeles: "/NorthAmerica/LosAngeles",
+    Location.LosAngeles: "/America/Los_Angeles",
     Location.Warsaw: "/Europe/Warsaw",
   };
 
