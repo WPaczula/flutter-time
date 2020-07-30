@@ -1,0 +1,1 @@
+var locationTimeKey = 'locationTime';

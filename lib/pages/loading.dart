@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_time/services/world_time.dart';
+import 'package:flutter_time/constants/argument_keys.dart';
+import 'package:flutter_time/constants/default_location.dart';
+import 'package:flutter_time/models/location_time.dart';
+import 'package:flutter_time/models/location_url.dart';
+import 'package:flutter_time/services/world_time_service.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -7,8 +11,6 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  String time;
-
   @override
   void initState() {
     super.initState();
@@ -16,17 +18,14 @@ class _LoadingState extends State<Loading> {
   }
 
   void setUpWorldTime() async {
-    var service = WorldTimeService();
-    try {
-      var currentTime = await service.getTime(locationUrl: '/Europe/Warsaw');
-      setState(() {
-        time = currentTime.toString();
-      });
-    } catch (e) {
-      setState(() {
-        time = 'Could not fetch the time';
-      });
-    }
+    var worldTimeService = WorldTimeService();
+    var locationUrl = LocationUrl(location: defaultLocation);
+    var currentTime = await worldTimeService.getTime(locationUrl: locationUrl);
+
+    Navigator.pushReplacementNamed(context, '/home', arguments: {
+      locationTimeKey:
+          LocationTime(dateTime: currentTime, location: defaultLocation)
+    });
   }
 
   @override
@@ -35,7 +34,7 @@ class _LoadingState extends State<Loading> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(20),
-          child: Text(time == null ? 'Loading' : time),
+          child: Text('Loading'),
         ),
       ),
     );
