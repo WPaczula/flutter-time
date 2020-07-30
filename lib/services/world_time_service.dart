@@ -14,9 +14,9 @@ class WorldTimeService {
     String dateTime = data['datetime'];
     String offset = data['utc_offset'];
     int offsetHours = int.parse(offset.substring(1, 3));
-
+    int sign = offset.contains('-') ? -1 : 1;
     DateTime now = DateTime.parse(dateTime);
 
-    return now.add(Duration(hours: offsetHours));
+    return now.add(Duration(hours: sign * offsetHours));
   }
 }
